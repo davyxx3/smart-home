@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>amis demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="stylesheet" href="sdk.css" />
+    <link rel="stylesheet" href="helper.css" />
+    <link rel="stylesheet" href="iconfont.css" />
+    <!-- 这是默认主题所需的，如果是其他主题则不需要 -->
+    <!-- 从 1.1.0 开始 sdk.css 将不支持 IE 11，如果要支持 IE11 请引用这个 css，并把前面那个删了 -->
+    <!-- <link rel="stylesheet" href="sdk-ie11.css" /> -->
+    <!-- 不过 amis 开发团队几乎没测试过 IE 11 下的效果，所以可能有细节功能用不了，如果发现请报 issue -->
+    <style>
+      html,
+      body,
+      .app-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" class="app-wrapper"></div>
+    <script src="sdk.js"></script>
+    <script type="text/javascript">
+      (function () {
+        let amis = amisRequire("amis/embed");
+        // 通过替换下面这个配置来生成不同页面
+        let amisJSON = {
+          type: "page",
+          toolbar: [
+            {
+              type: "form",
+              panelClassName: "mb-0",
+              title: "",
+              body: [
+                {
+                  type: "select",
+                  label: "设备名称",
+                  name: "device_name",
+                  selectFirst: true,
+                  mode: "inline",
+                  options: ["Device1", "Device2"],
+                  checkAll: false,
+                },
+                {
+                  label: "时间范围",
+                  type: "input-datetime-range",
+                  name: "timeRange",
+                  inline: true,
+                  value: "-1month,+0month",
+                  timeFormat: "HH:mm:ss",
+                  closeOnSelect: true,
+                  clearable: false,
+                },
+              ],
+              actions: [],
+              mode: "inline",
+              target: "sensor_data_list",
+              submitOnChange: true,
+              submitOnInit: true,
+            },
+          ],
+          body: [
+            {
+              type: "crud",
+              name: "sensor_data_list",
+              className: "m-t-sm",
+              headerToolbar: [
+                "bulkActions",
+                "reload",
+                "export-csv",
+                "export-excel",
+                { type: "switch-per-page", align: "right" },
+              ],
+              footerToolbar: ["statistics", "pagination"],
+              syncLocation: false,
+              api: "http://localhost:3000/api/v1/sensorData/${device_name}?timeRange=${timeRange}&page=${page}&perPage=${perPage}",
+              columns: [
+                {
+                  name: "dev_id",
+                  label: "设备ID",
+                },
+                {
+                  name: "dev_name",
+                  label: "设备名",
+                },
+                {
+                  name: "time",
+                  label: "时间",
+                },
+                {
+                  name: "tem",
+                  label: "温度",
+                },
+                {
+                  name: "hum",
+                  label: "湿度",
+                },
+                {
+                  name: "coCon",
+                  label: "CO2浓度",
+                },
+                {
+                  name: "pmCon",
+                  label: "PM2.5浓度",
+                },
+                {
+                  name: "smk",
+                  label: "烟雾浓度",
+                },
+                {
+                  name: "alarm",
+                  label: "报警信号",
+                },
+              ],
+            },
+            // {
+            //   type: "service",
+            //   api: "http://localhost:3000/api/v1/deviceData",
+            //   body: [
+            //     {
+            //       type: "card",
+            //       header: {
+            //         title: "电压",
+            //         description: "${dev_vol}V",
+            //         avatarText: "VOL",
+            //       },
+            //     },
+            //     {
+            //       type: "card",
+            //       href: "https://github.com/baidu/amis",
+            //       header: {
+            //         title: "标题",
+            //         subTitle: "副标题",
+            //         description: "这是一段描述",
+            //         avatarText: "BAT",
+            //       },
+            //       body: "这里是内容",
+            //     },
+            //   ],
+            // },
+            {
+              type: "grid",
+              columns: [
+                {
+                  type: "panel",
+                  className: "h-full",
+                  body: {
+                    type: "tabs",
+                    tabs: [
+                      {
+                        title: "温度变化",
+                        tab: [
+                          {
+                            type: "chart",
+                            config: {
+                              title: {
+                                text: "温度变化",
+                              },
+                              tooltip: {},
+                              xAxis: {
+                                type: "category",
+                                boundaryGap: false,
+                                data: [
+                                  "12时",
+                                  "13时",
+                                  "14时",
+                                  "15时",
+                                  "16时",
+                                  "17时",
+                                ],
+                              },
+                              yAxis: {},
+                              series: [
+                                {
+                                  name: "温度",
+                                  type: "line",
+                                  areaStyle: {
+                                    color: {
+                                      type: "linear",
+                                      x: 0,
+                                      y: 0,
+                                      x2: 0,
+                                      y2: 1,
+                                      colorStops: [
+                                        {
+                                          offset: 0,
+                                          color: "rgba(84, 112, 197, 1)",
+                                        },
+                                        {
+                                          offset: 1,
+                                          color: "rgba(84, 112, 197, 0)",
+                                        },
+                                      ],
+                                      global: false,
+                                    },
+                                  },
+                                  data: [10, 12, 12, 11, 13, 11],
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                      {
+                        title: "湿度变化",
+                        tab: [
+                          {
+                            type: "chart",
+                            config: {
+                              title: {
+                                text: "湿度变化",
+                              },
+                              tooltip: {},
+                              xAxis: {
+                                type: "category",
+                                boundaryGap: false,
+                                data: [
+                                  "12时",
+                                  "13时",
+                                  "14时",
+                                  "15时",
+                                  "16时",
+                                  "17时",
+                                ],
+                              },
+                              yAxis: {},
+                              series: [
+                                {
+                                  name: "湿度",
+                                  type: "line",
+                                  areaStyle: {
+                                    color: {
+                                      type: "linear",
+                                      x: 0,
+                                      y: 0,
+                                      x2: 0,
+                                      y2: 1,
+                                      colorStops: [
+                                        {
+                                          offset: 0,
+                                          color: "rgba(84, 112, 197, 1)",
+                                        },
+                                        {
+                                          offset: 1,
+                                          color: "rgba(84, 112, 197, 0)",
+                                        },
+                                      ],
+                                      global: false,
+                                    },
+                                  },
+                                  data: [10, 12, 12, 11, 13, 11],
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+            // {
+            //   type: "crud",
+            //   api: "/amis/api/sample",
+            //   mode: "cards",
+            //   draggable: true,
+            //   card: {
+            //     header: {
+            //       title: "$engine",
+            //       subTitle: "$platform",
+            //       subTitlePlaceholder: "暂无说明",
+            //       avatar:
+            //         '<%= data.avatar || "https://internal-amis-res.cdn.bcebos.com/images/2019-12/1575350573496/4873dbfaf6a5.png" %>',
+            //       avatarClassName: "pull-left thumb b-3x m-r",
+            //     },
+            //     actions: [
+            //       {
+            //         type: "button",
+            //         label: "查看",
+            //         actionType: "dialog",
+            //         dialog: {
+            //           title: "查看",
+            //           body: {
+            //             type: "form",
+            //             body: [
+            //               {
+            //                 type: "static",
+            //                 name: "engine",
+            //                 label: "Engine",
+            //               },
+            //               {
+            //                 type: "divider",
+            //               },
+            //               {
+            //                 type: "static",
+            //                 name: "browser",
+            //                 label: "Browser",
+            //               },
+            //               {
+            //                 type: "divider",
+            //               },
+            //               {
+            //                 type: "static",
+            //                 name: "platform",
+            //                 label: "Platform(s)",
+            //               },
+            //               {
+            //                 type: "divider",
+            //               },
+            //               {
+            //                 type: "static",
+            //                 name: "version",
+            //                 label: "Engine version",
+            //               },
+            //               {
+            //                 type: "divider",
+            //               },
+            //               {
+            //                 type: "static",
+            //                 name: "grade",
+            //                 label: "CSS grade",
+            //               },
+            //               {
+            //                 type: "divider",
+            //               },
+            //               {
+            //                 type: "html",
+            //                 html: "<p>添加其他 <span>Html 片段</span> 需要支持变量替换（todo）.</p>",
+            //               },
+            //             ],
+            //           },
+            //         },
+            //       },
+            //       {
+            //         type: "button",
+            //         label: "编辑",
+            //         actionType: "dialog",
+            //         dialog: {
+            //           title: "编辑",
+            //           body: {
+            //             type: "form",
+            //             name: "sample-edit-form",
+            //             api: "/amis/api/sample/$id",
+            //             body: [
+            //               {
+            //                 type: "input-text",
+            //                 name: "engine",
+            //                 label: "Engine",
+            //                 required: true,
+            //               },
+            //               {
+            //                 type: "divider",
+            //               },
+            //               {
+            //                 type: "input-text",
+            //                 name: "browser",
+            //                 label: "Browser",
+            //                 required: true,
+            //               },
+            //               {
+            //                 type: "divider",
+            //               },
+            //               {
+            //                 type: "input-text",
+            //                 name: "platform",
+            //                 label: "Platform(s)",
+            //                 required: true,
+            //               },
+            //               {
+            //                 type: "divider",
+            //               },
+            //               {
+            //                 type: "input-text",
+            //                 name: "version",
+            //                 label: "Engine version",
+            //               },
+            //               {
+            //                 type: "divider",
+            //               },
+            //               {
+            //                 type: "input-text",
+            //                 name: "grade",
+            //                 label: "CSS grade",
+            //               },
+            //             ],
+            //           },
+            //         },
+            //       },
+            //       {
+            //         type: "button",
+            //         label: "删除",
+            //         actionType: "ajax",
+            //         confirmText: "您确认要删除?",
+            //         api: "delete:/amis/api/sample/$id",
+            //       },
+            //     ],
+            //     body: [
+            //       {
+            //         name: "engine",
+            //         label: "engine",
+            //         sortable: true,
+            //         quickEdit: true,
+            //       },
+            //       {
+            //         name: "browser",
+            //         label: "Browser",
+            //       },
+            //       {
+            //         name: "platform",
+            //         label: "Platform",
+            //       },
+            //       {
+            //         name: "version",
+            //         label: "version",
+            //       },
+            //     ],
+            //   },
+            // },
+          ],
+        };
+        let amisScoped = amis.embed("#root", amisJSON);
+      })();
+    </script>
+  </body>
+</html>
