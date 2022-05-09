@@ -48,3 +48,15 @@ func GetSensorDataTotal(devName string) (int, int) {
 	db.Model(&SensorData{}).Where("dev_name = ?", devName).Count(&total)
 	return int(total), errmsg.SUCCESS
 }
+
+func GetSensorDataDescendWithLimit(devName string, limit int) ([]SensorData, int) {
+	var dataGroup []SensorData
+	db.Where("dev_name = ?", devName).Order("id desc").Limit(limit).Find(&dataGroup)
+	return dataGroup, errmsg.SUCCESS
+}
+
+func GetAllSensorData() ([]SensorData, int, int) {
+	var dataGroup []SensorData
+	result := db.Find(&dataGroup)
+	return dataGroup, int(result.RowsAffected), errmsg.SUCCESS
+}

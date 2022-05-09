@@ -57,20 +57,367 @@
                   type: "input-datetime-range",
                   name: "timeRange",
                   inline: true,
-                  value: "-1month,+0month",
+                  value: "-1year,+0year",
                   timeFormat: "HH:mm:ss",
                   closeOnSelect: true,
                   clearable: false,
                 },
+                // {
+                //   type: "submit",
+                //   label: "查询",
+                //   level: "primary",
+                // },
               ],
               actions: [],
               mode: "inline",
-              target: "sensor_data_list",
+              target: "sensor_data_list, device_data, sensor_data_chart",
               submitOnChange: true,
               submitOnInit: true,
             },
           ],
           body: [
+            {
+              type: "service",
+              api: "http://localhost:3000/api/v1/deviceData/$device_name",
+              name: "device_data",
+              body: {
+                type: "card",
+                body: [
+                  {
+                    type: "wrapper",
+                    size: "none",
+                    body: {
+                      type: "wrapper",
+                      size: "none",
+                      style: {
+                        display: "flex",
+                        "align-items": "center",
+                        "justify-content": "space-between",
+                        "margin-bottom": "4px",
+                      },
+                      body: [
+                        {
+                          type: "wrapper",
+                          size: "none",
+                          style: {
+                            flex: "1",
+                            overflow: "hidden",
+                            "white-space": "nowrap",
+                            "text-overflow": "ellipsis",
+                          },
+                          body: "设备信息",
+                        },
+                        {
+                          type: "wrapper",
+                          size: "none",
+                          style: {
+                            color: "#999",
+                          },
+                          body: "",
+                        },
+                      ],
+                    },
+                  },
+                  {
+                    type: "divider",
+                  },
+                  {
+                    type: "wrapper",
+                    size: "none",
+                    body: [
+                      {
+                        type: "wrapper",
+                        size: "none",
+                        style: {
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          marginBottom: "4px",
+                        },
+                        body: [
+                          {
+                            type: "wrapper",
+                            size: "none",
+                            style: {
+                              flex: "1",
+                              overflow: "hidden",
+                              whiteSpace: "nowrap",
+                              textOverflow: "ellipsis",
+                            },
+                            body: "设备ID",
+                          },
+                          {
+                            type: "wrapper",
+                            size: "none",
+                            style: {
+                              color: "#999",
+                            },
+                            body: "${dev_id}",
+                          },
+                        ],
+                      },
+                      {
+                        type: "wrapper",
+                        size: "none",
+                        style: {
+                          color: "#999",
+                          fontSize: "12px",
+                        },
+                        body: "",
+                      },
+                    ],
+                  },
+                  {
+                    type: "divider",
+                  },
+                  {
+                    type: "wrapper",
+                    size: "none",
+                    body: [
+                      {
+                        type: "wrapper",
+                        size: "none",
+                        style: {
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          marginBottom: "4px",
+                        },
+                        body: [
+                          {
+                            type: "wrapper",
+                            size: "none",
+                            style: {
+                              flex: "1",
+                              overflow: "hidden",
+                              whiteSpace: "nowrap",
+                              textOverflow: "ellipsis",
+                            },
+                            body: "设备名",
+                          },
+                          {
+                            type: "wrapper",
+                            size: "none",
+                            style: {
+                              color: "#999",
+                            },
+                            body: "${dev_name}",
+                          },
+                        ],
+                      },
+                      {
+                        type: "wrapper",
+                        size: "none",
+                        style: {
+                          color: "#999",
+                          fontSize: "12px",
+                        },
+                        body: "",
+                      },
+                    ],
+                  },
+                  {
+                    type: "divider",
+                  },
+                  {
+                    type: "wrapper",
+                    size: "none",
+                    body: [
+                      {
+                        type: "wrapper",
+                        size: "none",
+                        style: {
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          marginBottom: "4px",
+                        },
+                        body: [
+                          {
+                            type: "wrapper",
+                            size: "none",
+                            style: {
+                              flex: "1",
+                              overflow: "hidden",
+                              whiteSpace: "nowrap",
+                              textOverflow: "ellipsis",
+                            },
+                            body: "电压",
+                          },
+                          {
+                            type: "wrapper",
+                            size: "none",
+                            style: {
+                              color: "#999",
+                            },
+                            body: "${dev_vol}",
+                          },
+                        ],
+                      },
+                      {
+                        type: "wrapper",
+                        size: "none",
+                        style: {
+                          color: "#999",
+                          fontSize: "12px",
+                        },
+                        body: "",
+                      },
+                    ],
+                  },
+                  {
+                    type: "divider",
+                  },
+                  {
+                    type: "wrapper",
+                    size: "none",
+                    body: [
+                      {
+                        type: "wrapper",
+                        size: "none",
+                        style: {
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          marginBottom: "4px",
+                        },
+                        body: [
+                          {
+                            type: "wrapper",
+                            size: "none",
+                            style: {
+                              flex: "1",
+                              overflow: "hidden",
+                              whiteSpace: "nowrap",
+                              textOverflow: "ellipsis",
+                            },
+                            body: "电量",
+                          },
+                          {
+                            type: "wrapper",
+                            size: "none",
+                            style: {
+                              color: "#999",
+                            },
+                            body: "${dev_bat}",
+                          },
+                        ],
+                      },
+                      {
+                        type: "wrapper",
+                        size: "none",
+                        style: {
+                          color: "#999",
+                          fontSize: "12px",
+                        },
+                        body: "",
+                      },
+                    ],
+                  },
+                  {
+                    type: "divider",
+                  },
+                  {
+                    type: "wrapper",
+                    size: "none",
+                    body: [
+                      {
+                        type: "wrapper",
+                        size: "none",
+                        style: {
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          marginBottom: "4px",
+                        },
+                        body: [
+                          {
+                            type: "wrapper",
+                            size: "none",
+                            style: {
+                              flex: "1",
+                              overflow: "hidden",
+                              whiteSpace: "nowrap",
+                              textOverflow: "ellipsis",
+                            },
+                            body: "角度",
+                          },
+                          {
+                            type: "wrapper",
+                            size: "none",
+                            style: {
+                              color: "#999",
+                            },
+                            body: "${dev_ang}",
+                          },
+                        ],
+                      },
+                      {
+                        type: "wrapper",
+                        size: "none",
+                        style: {
+                          color: "#999",
+                          fontSize: "12px",
+                        },
+                        body: "",
+                      },
+                    ],
+                  },
+                  {
+                    type: "divider",
+                  },
+                  {
+                    type: "wrapper",
+                    size: "none",
+                    body: [
+                      {
+                        type: "wrapper",
+                        size: "none",
+                        style: {
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          marginBottom: "4px",
+                        },
+                        body: [
+                          {
+                            type: "wrapper",
+                            size: "none",
+                            style: {
+                              flex: "1",
+                              overflow: "hidden",
+                              whiteSpace: "nowrap",
+                              textOverflow: "ellipsis",
+                            },
+                            body: "信号强度",
+                          },
+                          {
+                            type: "wrapper",
+                            size: "none",
+                            style: {
+                              color: "#999",
+                            },
+                            body: "${dev_sig}",
+                          },
+                        ],
+                      },
+                      {
+                        type: "wrapper",
+                        size: "none",
+                        style: {
+                          color: "#999",
+                          fontSize: "12px",
+                        },
+                        body: "",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+            {
+              type: "divider",
+            },
             {
               type: "crud",
               name: "sensor_data_list",
@@ -124,310 +471,223 @@
                 },
               ],
             },
-            // {
-            //   type: "service",
-            //   api: "http://localhost:3000/api/v1/deviceData",
-            //   body: [
-            //     {
-            //       type: "card",
-            //       header: {
-            //         title: "电压",
-            //         description: "${dev_vol}V",
-            //         avatarText: "VOL",
-            //       },
-            //     },
-            //     {
-            //       type: "card",
-            //       href: "https://github.com/baidu/amis",
-            //       header: {
-            //         title: "标题",
-            //         subTitle: "副标题",
-            //         description: "这是一段描述",
-            //         avatarText: "BAT",
-            //       },
-            //       body: "这里是内容",
-            //     },
-            //   ],
-            // },
             {
-              type: "grid",
-              columns: [
+              type: "divider",
+            },
+            {
+              type: "service",
+              name: "sensor_data_chart",
+              api: "http://localhost:3000/api/v1/sensorData/array/${device_name}?limit=6",
+              interval: 10000,
+              body: [
                 {
-                  type: "panel",
-                  className: "h-full",
-                  body: {
-                    type: "tabs",
-                    tabs: [
-                      {
-                        title: "温度变化",
-                        tab: [
+                  type: "grid",
+                  columns: [
+                    {
+                      type: "panel",
+                      className: "h-full",
+                      body: {
+                        type: "tabs",
+                        tabs: [
                           {
-                            type: "chart",
-                            config: {
-                              title: {
-                                text: "温度变化",
-                              },
-                              tooltip: {},
-                              xAxis: {
-                                type: "category",
-                                boundaryGap: false,
-                                data: [
-                                  "12时",
-                                  "13时",
-                                  "14时",
-                                  "15时",
-                                  "16时",
-                                  "17时",
-                                ],
-                              },
-                              yAxis: {},
-                              series: [
-                                {
-                                  name: "温度",
-                                  type: "line",
-                                  areaStyle: {
-                                    color: {
-                                      type: "linear",
-                                      x: 0,
-                                      y: 0,
-                                      x2: 0,
-                                      y2: 1,
-                                      colorStops: [
-                                        {
-                                          offset: 0,
-                                          color: "rgba(84, 112, 197, 1)",
-                                        },
-                                        {
-                                          offset: 1,
-                                          color: "rgba(84, 112, 197, 0)",
-                                        },
-                                      ],
-                                      global: false,
-                                    },
+                            title: "温度变化",
+                            tab: [
+                              {
+                                type: "chart",
+                                trackExpression: "$time",
+                                config: {
+                                  title: {
+                                    text: "温度变化",
                                   },
-                                  data: [10, 12, 12, 11, 13, 11],
+                                  tooltip: {},
+                                  xAxis: {
+                                    type: "category",
+                                    boundaryGap: false,
+                                    data: "${time}",
+                                  },
+                                  yAxis: {},
+                                  series: [
+                                    {
+                                      name: "温度",
+                                      type: "line",
+                                      areaStyle: {
+                                        color: {
+                                          type: "linear",
+                                          x: 0,
+                                          y: 0,
+                                          x2: 0,
+                                          y2: 1,
+                                          colorStops: [
+                                            {
+                                              offset: 0,
+                                              color: "rgba(84, 112, 197, 1)",
+                                            },
+                                            {
+                                              offset: 1,
+                                              color: "rgba(84, 112, 197, 0)",
+                                            },
+                                          ],
+                                          global: false,
+                                        },
+                                      },
+                                      data: "${temperature}",
+                                    },
+                                  ],
                                 },
-                              ],
-                            },
+                              },
+                            ],
+                          },
+                          {
+                            title: "湿度变化",
+                            tab: [
+                              {
+                                type: "chart",
+                                trackExpression: "$time",
+                                config: {
+                                  title: {
+                                    text: "湿度变化",
+                                  },
+                                  tooltip: {},
+                                  xAxis: {
+                                    type: "category",
+                                    boundaryGap: false,
+                                    data: "${time}",
+                                  },
+                                  yAxis: {},
+                                  series: [
+                                    {
+                                      name: "湿度",
+                                      type: "line",
+                                      areaStyle: {
+                                        color: {
+                                          type: "linear",
+                                          x: 0,
+                                          y: 0,
+                                          x2: 0,
+                                          y2: 1,
+                                          colorStops: [
+                                            {
+                                              offset: 0,
+                                              color: "rgba(84, 112, 197, 1)",
+                                            },
+                                            {
+                                              offset: 1,
+                                              color: "rgba(84, 112, 197, 0)",
+                                            },
+                                          ],
+                                          global: false,
+                                        },
+                                      },
+                                      data: "${humidity}",
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                          {
+                            title: "CO2浓度变化",
+                            tab: [
+                              {
+                                type: "chart",
+                                trackExpression: "$time",
+                                config: {
+                                  title: {
+                                    text: "CO2浓度变化",
+                                  },
+                                  tooltip: {},
+                                  xAxis: {
+                                    type: "category",
+                                    boundaryGap: false,
+                                    data: "${time}",
+                                  },
+                                  yAxis: {},
+                                  series: [
+                                    {
+                                      name: "CO2浓度变化",
+                                      type: "line",
+                                      areaStyle: {
+                                        color: {
+                                          type: "linear",
+                                          x: 0,
+                                          y: 0,
+                                          x2: 0,
+                                          y2: 1,
+                                          colorStops: [
+                                            {
+                                              offset: 0,
+                                              color: "rgba(84, 112, 197, 1)",
+                                            },
+                                            {
+                                              offset: 1,
+                                              color: "rgba(84, 112, 197, 0)",
+                                            },
+                                          ],
+                                          global: false,
+                                        },
+                                      },
+                                      data: "${CO2}",
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                          {
+                            title: "PM2.5浓度变化",
+                            tab: [
+                              {
+                                type: "chart",
+                                trackExpression: "$time",
+                                config: {
+                                  title: {
+                                    text: "PM2.5浓度变化",
+                                  },
+                                  tooltip: {},
+                                  xAxis: {
+                                    type: "category",
+                                    boundaryGap: false,
+                                    data: "${time}",
+                                  },
+                                  yAxis: {},
+                                  series: [
+                                    {
+                                      name: "PM2.5浓度变化",
+                                      type: "line",
+                                      areaStyle: {
+                                        color: {
+                                          type: "linear",
+                                          x: 0,
+                                          y: 0,
+                                          x2: 0,
+                                          y2: 1,
+                                          colorStops: [
+                                            {
+                                              offset: 0,
+                                              color: "rgba(84, 112, 197, 1)",
+                                            },
+                                            {
+                                              offset: 1,
+                                              color: "rgba(84, 112, 197, 0)",
+                                            },
+                                          ],
+                                          global: false,
+                                        },
+                                      },
+                                      data: "${PM}",
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
                           },
                         ],
                       },
-                      {
-                        title: "湿度变化",
-                        tab: [
-                          {
-                            type: "chart",
-                            config: {
-                              title: {
-                                text: "湿度变化",
-                              },
-                              tooltip: {},
-                              xAxis: {
-                                type: "category",
-                                boundaryGap: false,
-                                data: [
-                                  "12时",
-                                  "13时",
-                                  "14时",
-                                  "15时",
-                                  "16时",
-                                  "17时",
-                                ],
-                              },
-                              yAxis: {},
-                              series: [
-                                {
-                                  name: "湿度",
-                                  type: "line",
-                                  areaStyle: {
-                                    color: {
-                                      type: "linear",
-                                      x: 0,
-                                      y: 0,
-                                      x2: 0,
-                                      y2: 1,
-                                      colorStops: [
-                                        {
-                                          offset: 0,
-                                          color: "rgba(84, 112, 197, 1)",
-                                        },
-                                        {
-                                          offset: 1,
-                                          color: "rgba(84, 112, 197, 0)",
-                                        },
-                                      ],
-                                      global: false,
-                                    },
-                                  },
-                                  data: [10, 12, 12, 11, 13, 11],
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    ],
-                  },
+                    },
+                  ],
                 },
               ],
             },
-            // {
-            //   type: "crud",
-            //   api: "/amis/api/sample",
-            //   mode: "cards",
-            //   draggable: true,
-            //   card: {
-            //     header: {
-            //       title: "$engine",
-            //       subTitle: "$platform",
-            //       subTitlePlaceholder: "暂无说明",
-            //       avatar:
-            //         '<%= data.avatar || "https://internal-amis-res.cdn.bcebos.com/images/2019-12/1575350573496/4873dbfaf6a5.png" %>',
-            //       avatarClassName: "pull-left thumb b-3x m-r",
-            //     },
-            //     actions: [
-            //       {
-            //         type: "button",
-            //         label: "查看",
-            //         actionType: "dialog",
-            //         dialog: {
-            //           title: "查看",
-            //           body: {
-            //             type: "form",
-            //             body: [
-            //               {
-            //                 type: "static",
-            //                 name: "engine",
-            //                 label: "Engine",
-            //               },
-            //               {
-            //                 type: "divider",
-            //               },
-            //               {
-            //                 type: "static",
-            //                 name: "browser",
-            //                 label: "Browser",
-            //               },
-            //               {
-            //                 type: "divider",
-            //               },
-            //               {
-            //                 type: "static",
-            //                 name: "platform",
-            //                 label: "Platform(s)",
-            //               },
-            //               {
-            //                 type: "divider",
-            //               },
-            //               {
-            //                 type: "static",
-            //                 name: "version",
-            //                 label: "Engine version",
-            //               },
-            //               {
-            //                 type: "divider",
-            //               },
-            //               {
-            //                 type: "static",
-            //                 name: "grade",
-            //                 label: "CSS grade",
-            //               },
-            //               {
-            //                 type: "divider",
-            //               },
-            //               {
-            //                 type: "html",
-            //                 html: "<p>添加其他 <span>Html 片段</span> 需要支持变量替换（todo）.</p>",
-            //               },
-            //             ],
-            //           },
-            //         },
-            //       },
-            //       {
-            //         type: "button",
-            //         label: "编辑",
-            //         actionType: "dialog",
-            //         dialog: {
-            //           title: "编辑",
-            //           body: {
-            //             type: "form",
-            //             name: "sample-edit-form",
-            //             api: "/amis/api/sample/$id",
-            //             body: [
-            //               {
-            //                 type: "input-text",
-            //                 name: "engine",
-            //                 label: "Engine",
-            //                 required: true,
-            //               },
-            //               {
-            //                 type: "divider",
-            //               },
-            //               {
-            //                 type: "input-text",
-            //                 name: "browser",
-            //                 label: "Browser",
-            //                 required: true,
-            //               },
-            //               {
-            //                 type: "divider",
-            //               },
-            //               {
-            //                 type: "input-text",
-            //                 name: "platform",
-            //                 label: "Platform(s)",
-            //                 required: true,
-            //               },
-            //               {
-            //                 type: "divider",
-            //               },
-            //               {
-            //                 type: "input-text",
-            //                 name: "version",
-            //                 label: "Engine version",
-            //               },
-            //               {
-            //                 type: "divider",
-            //               },
-            //               {
-            //                 type: "input-text",
-            //                 name: "grade",
-            //                 label: "CSS grade",
-            //               },
-            //             ],
-            //           },
-            //         },
-            //       },
-            //       {
-            //         type: "button",
-            //         label: "删除",
-            //         actionType: "ajax",
-            //         confirmText: "您确认要删除?",
-            //         api: "delete:/amis/api/sample/$id",
-            //       },
-            //     ],
-            //     body: [
-            //       {
-            //         name: "engine",
-            //         label: "engine",
-            //         sortable: true,
-            //         quickEdit: true,
-            //       },
-            //       {
-            //         name: "browser",
-            //         label: "Browser",
-            //       },
-            //       {
-            //         name: "platform",
-            //         label: "Platform",
-            //       },
-            //       {
-            //         name: "version",
-            //         label: "version",
-            //       },
-            //     ],
-            //   },
-            // },
           ],
         };
         let amisScoped = amis.embed("#root", amisJSON);

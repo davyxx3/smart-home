@@ -18,7 +18,8 @@ func StoreDeviceData(c *gin.Context) {
 }
 
 func GetDeviceData(c *gin.Context) {
-	deviceData, code := model.GetDeviceData()
+	devName := c.Param("devName")
+	deviceData, code := model.GetDeviceData(devName)
 	c.JSON(http.StatusOK, gin.H{
 		"status": code,
 		"msg":    errmsg.GetErrMsg(code),

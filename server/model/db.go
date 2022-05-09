@@ -20,7 +20,7 @@ func InitDb() {
 	if err != nil {
 		middleware.Logger.Fatal("Can not connect to database: ", err)
 	}
-	err = db.AutoMigrate(&User{}, &SensorData{}, &DeviceData{})
+	err = db.AutoMigrate(&SensorData{}, &DeviceData{})
 	if err != nil {
 		middleware.Logger.Info("Can not turn on auto migration: ", err)
 	}

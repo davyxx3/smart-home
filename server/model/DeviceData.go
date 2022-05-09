@@ -23,9 +23,9 @@ func StoreDeviceData(deviceData DeviceData) int {
 	return errmsg.SUCCESS
 }
 
-func GetDeviceData() (DeviceData, int) {
+func GetDeviceData(devName string) (DeviceData, int) {
 	var deviceData DeviceData
-	result := db.Last(&deviceData)
+	result := db.Where("dev_name = ?", devName).Find(&deviceData)
 	if result.RowsAffected < 1 {
 		return DeviceData{}, errmsg.ERROR
 	}
