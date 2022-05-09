@@ -1,0 +1,7 @@
+modbus_master.c:15:9:Modbus_TransmitData	16	static
+modbus_master.c:30:6:Modbus_ResetChannel	16	static
+modbus_master.c:39:6:Modbus_InitChannel	24	static
+modbus_master.c:50:9:Modbus_MakeRequestFrame	32	static
+modbus_master.c:89:9:Modbus_GenerateRequest	24	static
+modbus_master.c:104:9:Modbus_DecodeFrame	24	static
+modbus_master.c:145:6:Modbus_ReceiveBytes	32	static

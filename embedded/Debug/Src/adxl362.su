@@ -1,0 +1,5 @@
+adxl362.c:149:6:Init_ADXL362	24	static
+adxl362.c:180:9:ADXL362_ReadByte	48	static
+adxl362.c:209:9:ADXL362_WriteByte	48	static
+adxl362.c:236:9:Act_ADXL362_ReadData	264	static
+adxl362.c:259:9:ADXL362_GetGravity	24	static
