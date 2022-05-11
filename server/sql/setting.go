@@ -1,4 +1,4 @@
-package model
+package sql
 
 import (
 	"gopkg.in/ini.v1"
@@ -24,7 +24,6 @@ func init() {
 	if err != nil {
 		middleware.Logger.Fatal("can not find the configuration file")
 	}
-
 	loadServerConfig(file)
 	loadDatabaseConfig(file)
 }

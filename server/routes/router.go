@@ -3,15 +3,16 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	v1 "smart-home/api/v1"
-	v2 "smart-home/api/v2"
 	"smart-home/middleware"
-	"smart-home/model"
+	"smart-home/sql"
 )
 
-func InitRouter() {
-	gin.SetMode(model.Settings.AppMode)
+func Init() *gin.Engine {
+	gin.SetMode(sql.Settings.AppMode)
 	r := gin.Default()
+	// 处理跨域请求
 	r.Use(middleware.Cors())
+	// 绑定V1路由
 	rV1 := r.Group("api/v1")
 	{
 		rV1.POST("sensorData", v1.StoreSensorData)
@@ -20,11 +21,10 @@ func InitRouter() {
 
 		rV1.GET("deviceData/:devName", v1.GetDeviceData)
 		rV1.POST("deviceData", v1.StoreDeviceData)
+		rV1.GET("devList", v1.GetDeviceList)
+
+		rV1.POST("rawData", v1.StoreRawData)
 	}
 
-	rV2 := r.Group("api/v2")
-	{
-		rV2.GET("sensorData", v2.GetSensorData)
-	}
-	r.Run(model.Settings.HttpPort)
+	return r
 }
