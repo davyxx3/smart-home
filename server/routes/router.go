@@ -2,6 +2,10 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
+	gs "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
+	_ "smart-home/docs"
+
 	v1 "smart-home/api/v1"
 	"smart-home/middleware"
 	"smart-home/sql"
@@ -12,6 +16,7 @@ func Init() *gin.Engine {
 	r := gin.Default()
 	// 处理跨域请求
 	r.Use(middleware.Cors())
+	r.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
 	// 绑定V1路由
 	rV1 := r.Group("api/v1")
 	{
